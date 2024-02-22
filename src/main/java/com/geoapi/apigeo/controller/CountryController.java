@@ -15,7 +15,7 @@ public class CountryController {
     @Autowired
     private CountryService countryService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/research/{id}")
     public ResponseEntity<Country> getCountryById(@PathVariable Long id) {
         Country country = countryService.getCountryById(id);
         return ResponseEntity.ok().body(country);
@@ -33,13 +33,13 @@ public class CountryController {
         return ResponseEntity.ok().body(newCountry);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Country> updateCountry(@PathVariable Long id, @RequestBody Country countryDetails) {
         Country updatedCountry = countryService.updateCountry(id, countryDetails);
         return ResponseEntity.ok().body(updatedCountry);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCountry(@PathVariable Long id) {
         countryService.deleteCountry(id);
         return ResponseEntity.ok().build();

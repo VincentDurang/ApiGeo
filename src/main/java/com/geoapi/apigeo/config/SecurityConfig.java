@@ -1,5 +1,6 @@
 package com.geoapi.apigeo.config;
 
+import com.geoapi.apigeo.security.JwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -17,11 +18,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+
+    // Configuration de la sécurité
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
+                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/countries/all").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/countries/research/{id}").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/api/countries/add").hasRole("ADMIN")
@@ -33,6 +37,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // Configuration de l'authentification
     @Bean
     public AuthenticationManager authenticationManager(
             UserDetailsService userDetailsService,
@@ -44,7 +49,7 @@ public class SecurityConfig {
         return new ProviderManager(authenticationProvider);
     }
 
-
+    // Configuration de l'encodage des mots de passe
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

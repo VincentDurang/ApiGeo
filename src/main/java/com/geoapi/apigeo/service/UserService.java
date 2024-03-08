@@ -16,6 +16,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    // This method is used by Spring Security to authenticate and authorize a user
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findByUsername(username);

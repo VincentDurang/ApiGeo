@@ -30,7 +30,7 @@ public class UserEntity implements UserDetails {
     @Column(name = "Role")
     private Role role;
 
-
+    // UserDetails methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(role.name()));
